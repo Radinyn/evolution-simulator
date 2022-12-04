@@ -31,4 +31,48 @@ class OrientationTest {
         // then
         assertEquals(Orientation.SOUTH_WEST, orient - 3)
     }
+
+    @Test fun next() {
+        // given
+        var orient: Orientation = Orientation.NORTH
+        // then
+        orient = orient.next()
+        assertEquals(Orientation.NORTH_EAST, orient)
+        orient = orient.next()
+        assertEquals(Orientation.EAST, orient)
+        orient = orient.next()
+        assertEquals(Orientation.EAST_SOUTH, orient)
+        orient = orient.next()
+        assertEquals(Orientation.SOUTH, orient)
+        orient = orient.next()
+        assertEquals(Orientation.SOUTH_WEST, orient)
+        orient = orient.next()
+        assertEquals(Orientation.WEST, orient)
+        orient = orient.next()
+        assertEquals(Orientation.WEST_NORTH, orient)
+        orient = orient.next()
+        assertEquals(Orientation.NORTH, orient)
+    }
+
+    @Test fun prev() {
+        // given
+        var orient: Orientation = Orientation.NORTH
+        // then
+        orient = orient.prev()
+        assertEquals(Orientation.WEST_NORTH, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.WEST, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.SOUTH_WEST, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.SOUTH, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.EAST_SOUTH, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.EAST, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.NORTH_EAST, orient)
+        orient = orient.prev()
+        assertEquals(Orientation.NORTH, orient)
+    }
 }
