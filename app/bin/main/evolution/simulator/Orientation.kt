@@ -27,15 +27,8 @@ enum class Orientation {
     }
 
     fun toVec(): Vector2d {
-        return when (this) {
-            NORTH -> Vector2d(0,1)
-            NORTH_EAST -> Vector2d(1,1)
-            EAST -> Vector2d(1,0)
-            EAST_SOUTH -> Vector2d(1, -1)
-            SOUTH -> Vector2d(0, -1)
-            SOUTH_WEST -> Vector2d(-1, -1)
-            WEST -> Vector2d(-1 ,0)
-            WEST_NORTH -> Vector2d(-1, 1)
+        when (this) {
+            
         }
     }
 }

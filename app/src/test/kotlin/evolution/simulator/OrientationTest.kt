@@ -75,4 +75,20 @@ class OrientationTest {
         orient = orient.prev()
         assertEquals(Orientation.NORTH, orient)
     }
+
+    @Test fun toVec() {
+        // given
+        var orient: Orientation = Orientation.NORTH
+        // then
+        assertEquals(Vector2d(0,0),
+            orient.plus(0).toVec() +
+                    orient.plus(1).toVec() +
+                    orient.plus(2).toVec() +
+                    orient.plus(3).toVec() +
+                    orient.plus(4).toVec() +
+                    orient.plus(5).toVec() +
+                    orient.plus(6).toVec() +
+                    orient.plus(7).toVec()
+        )
+    }
 }

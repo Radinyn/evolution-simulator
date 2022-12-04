@@ -1,21 +1,36 @@
 package evolution.simulator
 
-class Vector2d {
-    var x: Int;
-    var y: Int;
+import java.util.*
 
-    constructor(x:Int, y:Int) {
-        this.x = x;
-        this.y = y;
+class Vector2d(private var x: Int, private var y: Int) {
+
+    operator fun plus(other: Vector2d): Vector2d {
+        return Vector2d(this.x + other.x, this.y + other.y)
     }
 
-    operator fun plus(other: Vector2d) {
-        this.x += other.x;
-        this.y += other.y;
+    operator fun minus(other: Vector2d): Vector2d {
+        return Vector2d(this.x - other.x, this.y - other.y)
     }
 
-    operator fun minus(other: Vector2d) {
-        this.x -= other.x;
-        this.y -= other.y;
+    operator fun plusAssign(other: Vector2d) {
+        this.x += other.x
+        this.y += other.y
+    }
+
+    operator fun minusAssign(other: Vector2d) {
+        this.x -= other.x
+        this.y -= other.y
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+
+        other as Vector2d
+        if (x != other.x || y != other.y) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return Objects.hash(this.x, this.y)
     }
 }
