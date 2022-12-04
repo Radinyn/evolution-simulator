@@ -2,7 +2,7 @@ package evolution.simulator
 
 import java.util.*
 
-class Vector2d(private var x: Int, private var y: Int) {
+class Vector2d(public var x: Int, public var y: Int) {
 
     operator fun plus(other: Vector2d): Vector2d {
         return Vector2d(this.x + other.x, this.y + other.y)
