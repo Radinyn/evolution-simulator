@@ -18,11 +18,11 @@ enum class Orientation {
         return Orientation.values()[(this.ordinal - step + enumValues<Orientation>().size) % enumValues<Orientation>().size]
     }
 
-    fun next(orientation: Orientation): Orientation {
-        return orientation + 1;
+    fun next(): Orientation {
+        return this + 1;
     }
 
-    fun prev(orientation: Orientation): Orientation {
-        return orientation - 1;
+    fun prev(): Orientation {
+        return this - 1;
     }
 }
