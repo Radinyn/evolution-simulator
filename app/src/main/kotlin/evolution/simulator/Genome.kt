@@ -1,5 +1,6 @@
 package evolution.simulator
 
+import kotlin.math.abs
 import kotlin.random.*;
 
 class Genome {
@@ -32,19 +33,19 @@ class Genome {
             final_factor = 1-factor
         }
 
-        assert(0 <= final_factor && final_factor <= 1)
+        assert(final_factor in 0.0..1.0)
 
         var border: Int = (this.size * final_factor).toInt()
 
         val newGenes: MutableList<UInt> = ArrayList()
         newGenes.addAll(first.slice(0..border))
-        newGenes.addAll(second.slice((border+1)..(this.size-1)))
+        newGenes.addAll(second.slice((border+1) until this.size))
 
         // TODO: REPLACE WITH PARAMS
         val minMutations = 0
         val maxMutations = this.size-1
 
-        var indices: List<Int> = (0..(this.size-1))
+        var indices: List<Int> = (0 until this.size)
                                 .shuffled()
                                 .slice(
                                     0..(minMutations..maxMutations).random()
@@ -60,7 +61,7 @@ class Genome {
     private fun mutate(x: UInt): UInt {
         // TODO: REPLACE WITH PARAMS
         if (true) {
-            return (Math.abs(Random.nextInt()) % 8).toUInt()
+            return (abs(Random.nextInt()) % 8).toUInt()
         }
         return ((x.toInt()+8)+(listOf(1, -1).random()) % 8).toUInt()
     }
