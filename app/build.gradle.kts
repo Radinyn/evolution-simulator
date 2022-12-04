@@ -8,7 +8,8 @@
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.7.22"
+    id("org.openjfx.javafxplugin") version "0.0.13"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -33,10 +34,25 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     // Use the Kotlin JUnit integration.
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 }
 
 application {
     // Define the main class for the application.
     mainClass.set("evolution.simulator.AppKt")
+}
+
+javafx {
+    version = "19"
+    modules("javafx.controls", "javafx.fxml")
+}
+
+tasks.test {
+    useJUnitPlatform()
+
+    maxHeapSize = "1G"
+
+    testLogging {
+        events("passed")
+    }
 }
