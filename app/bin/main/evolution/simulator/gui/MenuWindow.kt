@@ -31,8 +31,6 @@ class MenuWindow(
             app.newSimulation(menu.get())
         }
 
-        // slider.showTickMarks(true)
-        // slider.showTickLabels(true)
 
         vbox.children.addAll(label, menu.asNode(), button)
         vbox.alignment = Pos.CENTER

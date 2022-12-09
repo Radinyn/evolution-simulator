@@ -26,12 +26,6 @@ class GridElementBox {
             imageView.rotate = 0.0
         }
         
-        // this.setOnMouseClicked( ( e ) ->
-        // {
-        //     vb.requestFocus();
-        // } );
-
-        // val label = Label(text)
         this.vbox.children.addAll(imageView)
         this.vbox.alignment = Pos.CENTER
     }

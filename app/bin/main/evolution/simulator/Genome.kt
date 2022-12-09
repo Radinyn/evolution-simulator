@@ -1,8 +1,9 @@
 package evolution.simulator
 
-import kotlin.random.*;
+import kotlin.math.abs
+import kotlin.random.*
 
-class Genome {
+class Genome: Iterable<UInt> {
     private val genes: MutableList<UInt> = ArrayList()
 
     val size: Int
@@ -14,37 +15,37 @@ class Genome {
         this.genes.addAll(collection)
     }
 
-    public fun slice(range: IntRange): List<UInt> {
+    fun slice(range: IntRange): List<UInt> {
         return this.genes.slice(range)
     }
 
-    public fun get(index: Int): UInt {
+    fun get(index: Int): UInt {
         return this.genes[index]
     }
 
-    public fun cross(other: Genome, factor: Float): Genome {
+    fun cross(other: Genome, factor: Float): Genome {
         var first: Genome = this
         var second: Genome = other
-        var final_factor: Float = factor
+        var finalFactor: Float = factor
 
         if (Random.nextBoolean()) {
             first = second.also {second = first}
-            final_factor = 1-factor
+            finalFactor = 1-factor
         }
 
-        assert(0 <= final_factor && final_factor <= 1)
+        assert(finalFactor in 0.0..1.0)
 
-        var border: Int = (this.size * final_factor).toInt()
+        val border: Int = (this.size * finalFactor).toInt()
 
         val newGenes: MutableList<UInt> = ArrayList()
         newGenes.addAll(first.slice(0..border))
-        newGenes.addAll(second.slice((border+1)..(this.size-1)))
+        newGenes.addAll(second.slice((border+1) until this.size))
 
         // TODO: REPLACE WITH PARAMS
         val minMutations = 0
         val maxMutations = this.size-1
 
-        var indices: List<Int> = (0..(this.size-1))
+        val indices: List<Int> = (0 until this.size)
                                 .shuffled()
                                 .slice(
                                     0..(minMutations..maxMutations).random()
@@ -60,8 +61,31 @@ class Genome {
     private fun mutate(x: UInt): UInt {
         // TODO: REPLACE WITH PARAMS
         if (true) {
-            return (Math.abs(Random.nextInt()) % 8).toUInt()
+            return (abs(Random.nextInt()) % 8).toUInt()
         }
         return ((x.toInt()+8)+(listOf(1, -1).random()) % 8).toUInt()
     }
+
+    companion object {
+        fun generateRandom(size: Int): Genome {
+            return Genome( (0 until size).map { (abs(Random.nextInt()) % 8).toUInt() } )
+        }
+    }
+
+    override fun iterator(): Iterator<UInt> {
+        return GenomeIterator(this.genes, this.size)
+    }
+}
+
+class GenomeIterator(val genes: MutableList<UInt>, val size: Int): Iterator<UInt> {
+    var index: Int = -1
+    override fun hasNext(): Boolean {
+        return index < size-1
+    }
+
+    override fun next(): UInt {
+        index++
+        return genes[index]
+    }
+
 }
