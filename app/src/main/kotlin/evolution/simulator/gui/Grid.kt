@@ -27,10 +27,10 @@ class Grid {
     
     constructor (width: Int, height: Int) {
         for (i in 1..height) {
-            this.gridPane.rowConstraints.add(RowConstraints(80.0))
+            this.gridPane.rowConstraints.add(RowConstraints(20.0))
         }
         for (i in 1..width) {
-            this.gridPane.columnConstraints.add(ColumnConstraints(80.0))
+            this.gridPane.columnConstraints.add(ColumnConstraints(20.0))
         }
     }
 
