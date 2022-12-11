@@ -52,4 +52,25 @@ data class SimulationParameters(
     val mutationType: MutationType,     // wariant mutacji
     val genomeLength: Int,              // długość genomu zwierzaków
     val animalBehavior: AnimalBehavior, // wariant zachowania zwierzaków 
-);
+)
+
+/*
+Dzień 1:
+1 Usuwamy nieżywe zwirzątka
+2 genotyp aktywujemy pierwszy gen i każde zwierzątko porusza się według niego
+3 konsekwencje ruchów
+ - może wejśc na planta i zjada go (obsługa tego zdarzenia)
+ - jak juz wszyskich obsłużymy wchodzi druga faza czyli rozmnażanie (kazdy jeden dzień to generacja)
+ - jeśli dwa zeirzątka to romnażają się bierzemy energie z rodziców i tworzymy niowe
+    - dwa zwierzątka mają swoje genotypy (1 5 7 0 0) (2 3 1 0)
+    - działą zasada zachowania energi suma energi po operacji musi być taka sama
+    - stowrzenei dziacka kosztuje ileś energii PARAMETR Z1 - PARAMETR Z2 - PARAMETR Z3(dziecko) = 2*PARAMETR
+    - krzyżowanie opis w skrypcie
+    - na tymsamym polu pojawi się dziecko
+4 Roślny wzrost roślin
+ */
+
+/*
+warianty:
+
+ */

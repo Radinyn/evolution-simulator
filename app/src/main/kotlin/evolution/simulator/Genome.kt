@@ -1,9 +1,10 @@
 package evolution.simulator
 
+import evolution.simulator.gui.EvolutionSimulator
 import kotlin.math.abs
 import kotlin.random.*
 
-class Genome: Iterable<UInt> {
+class Genome(collection: Collection<UInt>) : Iterable<UInt> {
     private val genes: MutableList<UInt> = ArrayList()
 
     val size: Int
@@ -11,11 +12,11 @@ class Genome: Iterable<UInt> {
             return this.genes.size
         }
 
-    constructor(collection: Collection<UInt>) {
+    init {
         this.genes.addAll(collection)
     }
 
-    fun slice(range: IntRange): List<UInt> {
+    private fun slice(range: IntRange): List<UInt> {
         return this.genes.slice(range)
     }
 
@@ -41,9 +42,8 @@ class Genome: Iterable<UInt> {
         newGenes.addAll(first.slice(0..border))
         newGenes.addAll(second.slice((border+1) until this.size))
 
-        // TODO: REPLACE WITH PARAMS
-        val minMutations = 0
-        val maxMutations = this.size-1
+        val minMutations = EvolutionSimulator.params.mutationMinNum
+        val maxMutations = EvolutionSimulator.params.mutationMaxNum
 
         val indices: List<Int> = (0 until this.size)
                                 .shuffled()
@@ -59,8 +59,7 @@ class Genome: Iterable<UInt> {
     }
 
     private fun mutate(x: UInt): UInt {
-        // TODO: REPLACE WITH PARAMS
-        if (true) {
+        if (EvolutionSimulator.params.mutationType == MutationType.RANDOM) {
             return (abs(Random.nextInt()) % 8).toUInt()
         }
         return ((x.toInt()+8)+(listOf(1, -1).random()) % 8).toUInt()
@@ -77,8 +76,8 @@ class Genome: Iterable<UInt> {
     }
 }
 
-class GenomeIterator(val genes: MutableList<UInt>, val size: Int): Iterator<UInt> {
-    var index: Int = -1
+class GenomeIterator(private val genes: MutableList<UInt>, private val size: Int): Iterator<UInt> {
+    private var index: Int = -1
     override fun hasNext(): Boolean {
         return index < size-1
     }

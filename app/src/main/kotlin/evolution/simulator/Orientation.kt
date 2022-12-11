@@ -19,11 +19,11 @@ enum class Orientation {
     }
 
     fun next(): Orientation {
-        return this + 1;
+        return this + 1
     }
 
     fun prev(): Orientation {
-        return this - 1;
+        return this - 1
     }
 
     fun toVec(): Vector2d {
