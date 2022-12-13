@@ -8,7 +8,8 @@ class Animal(private var position: Vector2d,
              private var energy: Int,
              private var age: Int,
              private var numOfChildren: Int,
-             private var genome: Genome)
+             private val genome: Genome,
+             private val params: SimulationParameters)
     : Comparable<Animal> {
 
     fun age() {
@@ -17,11 +18,11 @@ class Animal(private var position: Vector2d,
     }
 
     fun eat() {
-        energy += EvolutionSimulator.params.plantEnergy
+        energy += params.plantEnergy
     }
 
     fun ableToMate(): Boolean {
-        return energy >= EvolutionSimulator.params.stuffedThreshold
+        return energy >= params.stuffedThreshold
     }
 
     fun isDead(): Boolean {
@@ -31,16 +32,17 @@ class Animal(private var position: Vector2d,
     fun mate(other: Animal): Animal {
         assert(this.ableToMate() && other.ableToMate())
         val offspringGenome: Genome = genome.cross(other.genome, energy.toFloat()/other.energy.toFloat())
-        this.energy -= EvolutionSimulator.params.reproductionCost
+        this.energy -= params.reproductionCost
         this.numOfChildren += 1
-        other.energy -= EvolutionSimulator.params.reproductionCost
+        other.energy -= params.reproductionCost
         other.numOfChildren += 1
         return Animal(position,
             orientation,
-            2 * EvolutionSimulator.params.reproductionCost,
+            2 * params.reproductionCost,
             0,
             0,
-            offspringGenome)
+            offspringGenome,
+            params)
     }
 
     override fun compareTo(other: Animal): Int {

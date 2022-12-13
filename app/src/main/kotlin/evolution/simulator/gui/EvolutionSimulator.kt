@@ -17,12 +17,6 @@ class EvolutionSimulator : Application() {
         val grid = Grid(parameters.width, parameters.height)
         val stage: Stage = Stage();
         val window = SimulationWindow(grid, stage)
-        params = parameters
         window.start()
     }
-
-    companion object {
-        lateinit var params: SimulationParameters
-    }
-
 }
