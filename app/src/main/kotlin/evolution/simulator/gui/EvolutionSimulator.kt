@@ -13,9 +13,9 @@ class EvolutionSimulator : Application() {
         window.start()
     }
 
-    public fun newSimulation(parameters: SimulationParameters) {
+    fun newSimulation(parameters: SimulationParameters) {
         val grid = Grid(parameters.width, parameters.height)
-        val stage: Stage = Stage();
+        val stage = Stage()
         val window = SimulationWindow(grid, stage)
         window.start()
     }

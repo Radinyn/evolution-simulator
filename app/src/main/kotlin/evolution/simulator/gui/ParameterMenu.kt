@@ -1,4 +1,4 @@
-package evolution.simulator.gui;
+package evolution.simulator.gui
 
 import evolution.simulator.*
 import javafx.scene.control.Label
@@ -13,15 +13,15 @@ class ParameterBox(
     private val vbox: VBox = VBox()
 
     init {
-        this.vbox.alignment = Pos.BASELINE_CENTER;
+        this.vbox.alignment = Pos.BASELINE_CENTER
         this.vbox.children.addAll(label, slider.asNode())
     }
 
-    public fun asNode(): VBox {
+    fun asNode(): VBox {
         return this.vbox
     }
 
-    public fun getValue(): Int {
+    fun getValue(): Int {
         return this.slider.getValue()
     }
 }
@@ -74,15 +74,15 @@ class ParameterMenu {
         )
         
         menu.children.addAll(left, right)
-        this.menu.alignment = Pos.BASELINE_CENTER;
+        this.menu.alignment = Pos.BASELINE_CENTER
 
     }
 
-    public fun asNode(): HBox {
+    fun asNode(): HBox {
         return this.menu
     }
 
-    public fun get(): SimulationParameters {
+    fun get(): SimulationParameters {
         return SimulationParameters(
             height.getValue(),
             width.getValue(),

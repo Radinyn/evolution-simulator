@@ -78,7 +78,7 @@ class OrientationTest {
 
     @Test fun toVec() {
         // given
-        var orient: Orientation = Orientation.NORTH
+        val orient: Orientation = Orientation.NORTH
         // then
         assertEquals(Vector2d(0,0),
             orient.plus(0).toVec() +
