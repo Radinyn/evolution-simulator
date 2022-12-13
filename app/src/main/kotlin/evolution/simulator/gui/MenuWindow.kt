@@ -1,24 +1,21 @@
 package evolution.simulator.gui
 
-import javafx.stage.Stage
-import javafx.scene.Scene
-import javafx.scene.control.Label
-import javafx.scene.layout.*
-import javafx.scene.control.*
-import javafx.event.*
+import javafx.event.EventHandler
 import javafx.geometry.Pos
+import javafx.scene.Scene
+import javafx.scene.control.Button
+import javafx.scene.control.Label
 import javafx.scene.image.Image
-
+import javafx.scene.layout.*
+import javafx.stage.Stage
 import java.io.FileInputStream
-
-import evolution.simulator.SimulationParameters
 
 class MenuWindow(
     private val app: EvolutionSimulator,
     private val stage: Stage
 ) {
 
-    public fun start() {
+    fun start() {
         val vbox = VBox()
 
         val label = Label("wprowadz parametry") 
@@ -27,7 +24,7 @@ class MenuWindow(
 
         val menu = ParameterMenu()
 
-        button.onAction = EventHandler<ActionEvent> {
+        button.onAction = EventHandler {
             app.newSimulation(menu.get())
         }
 
@@ -35,14 +32,14 @@ class MenuWindow(
         vbox.children.addAll(label, menu.asNode(), button)
         vbox.alignment = Pos.CENTER
 
-        val background_image = BackgroundImage(
+        val backgroundImage = BackgroundImage(
             Image(FileInputStream("src/main/resources/test2.jpeg")),
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.DEFAULT,
             BackgroundSize(1.0, 1.0, true, true, false, false)
         )
-        vbox.background = Background(background_image)
+        vbox.background = Background(backgroundImage)
 
         val scene = Scene(vbox, 400.0, 600.0)
         stage.title = "Evolution Simulator - Menu"

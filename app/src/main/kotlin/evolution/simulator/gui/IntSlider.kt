@@ -1,4 +1,4 @@
-package evolution.simulator.gui;
+package evolution.simulator.gui
 
 import javafx.scene.control.*
 
@@ -15,16 +15,16 @@ class IntSlider(
         slider.blockIncrement = step.toDouble()
         slider.minorTickCount = 0
         slider.majorTickUnit = step.toDouble()
-        slider.setSnapToTicks(true)
-        slider.setShowTickMarks(true)
-        slider.setShowTickLabels(true)
+        slider.isSnapToTicks = true
+        slider.isShowTickMarks = true
+        slider.isShowTickLabels = true
     }
 
-    public fun asNode(): Slider {
+    fun asNode(): Slider {
         return slider
     }
 
-    public fun getValue(): Int {
+    fun getValue(): Int {
         return slider.value.toInt()
     }
 }
