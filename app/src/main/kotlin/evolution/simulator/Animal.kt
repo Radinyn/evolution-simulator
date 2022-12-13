@@ -1,6 +1,5 @@
 package evolution.simulator
 
-import evolution.simulator.gui.EvolutionSimulator
 import kotlin.random.Random
 
 class Animal(private var position: Vector2d,
@@ -11,6 +10,16 @@ class Animal(private var position: Vector2d,
              private val genome: Genome,
              private val params: SimulationParameters)
     : Comparable<Animal> {
+    private var genomeIter: GenomeIterator = genome.iterator()
+
+    val animalEnergy: Int
+        get() {return this.energy}
+
+    val animalAge: Int
+        get() {return this.age}
+
+    val animalNumOfChildren: Int
+        get() {return this.numOfChildren}
 
     fun age() {
         energy -= 1 // energy loss per day (fixed value)
@@ -29,9 +38,13 @@ class Animal(private var position: Vector2d,
         return energy <= 0
     }
 
+    fun nextGene(): UInt {
+        return genomeIter.next()
+    }
+
     fun mate(other: Animal): Animal {
         assert(this.ableToMate() && other.ableToMate())
-        val offspringGenome: Genome = genome.cross(other.genome, energy.toFloat()/other.energy.toFloat())
+        val offspringGenome: Genome = genome.cross(other.genome, energy.toFloat() / (energy.toFloat() + other.energy.toFloat()))
         this.energy -= params.reproductionCost
         this.numOfChildren += 1
         other.energy -= params.reproductionCost
@@ -46,10 +59,10 @@ class Animal(private var position: Vector2d,
     }
 
     override fun compareTo(other: Animal): Int {
-        if (energy != other.energy) return energy - other.energy
-        else if (age != other.age) return age - other.age
-        else if (numOfChildren != other.numOfChildren) return numOfChildren - other.numOfChildren
-        else return (Random.nextInt() % 2) - 1 // -1 or 0 or 1
+        return if (energy != other.energy) energy - other.energy
+        else if (age != other.age) age - other.age
+        else if (numOfChildren != other.numOfChildren) numOfChildren - other.numOfChildren
+        else (Random.nextInt() % 2) - 1 // -1 or 0 or 1
     }
 
     fun getEnergy(): Int {
