@@ -8,7 +8,7 @@ class Map(private val params: SimulationParameters) {
     }
 
     private fun controlPos(pos:Vector2d): Vector2d {
-        return pos // TODO implement teleportation and other shit depended on MAPTYPE
+        return pos // TODO implement teleportation and other things dependent on MAPTYPE
     }
 
     fun place(animal: Animal) {
