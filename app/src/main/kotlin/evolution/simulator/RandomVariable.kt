@@ -19,7 +19,7 @@ class RandomVariable(private var dist: MutableList<Double>) {
         val coll = ArrayList<Int>()
         var randomIndex: Int
         repeat(num) {
-            normalize()
+            if (!normalize()) return coll
             distFunc()
             randomIndex = randomIndex()
             coll.add(randomIndex)
@@ -28,10 +28,13 @@ class RandomVariable(private var dist: MutableList<Double>) {
         return coll
     }
 
-    private fun normalize() {
+    private fun normalize(): Boolean {
         val sum = dist.sum()
-        assert(sum > 0)
-        dist = dist.map { it/sum }.toMutableList()
+        if (sum > 0.0) {
+            dist = dist.map { it/sum }.toMutableList()
+            return true
+        }
+        return false
     }
 
     private fun distFunc() {
@@ -49,13 +52,13 @@ class RandomVariable(private var dist: MutableList<Double>) {
         var high = this.dist.size
         while (low <= high) {
             val mid = low + (high - low) / 2
-            if (this.distFunc[mid+1] < key) {
+            if (this.distFunc[mid+1] <= key) {
                 // right and left side of interval is less than key -> go right
                 low = mid + 1
             } else if (this.distFunc[mid] > key) {
                 // right and left side of interval is higher than key -> go left
                 high = mid - 1
-            } else if (this.distFunc[mid] <= key && this.distFunc[mid+1] >= key ) {
+            } else if (this.distFunc[mid] <= key && this.distFunc[mid+1] > key ) {
                 index = mid
                 break
             }
