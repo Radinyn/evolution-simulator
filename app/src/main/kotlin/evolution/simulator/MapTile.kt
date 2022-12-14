@@ -1,13 +1,13 @@
 package evolution.simulator
 
-import kotlin.streams.toList
 
 /* class that handles map entities on same map position
-handles mating and eating by strongest animal (one with the highest energy) also aging and plant growdth on this tile
+handles mating and eating by strongest animal (one with the highest energy) also aging and plant growth on this tile
  */
 
 class MapTile {
-    private val animals = HashSet<Animal>()
+    val animals = HashSet<Animal>()
+    private val animalEnterBuffer = ArrayList<Animal>()
     var plant: Boolean = false
     var corpses: UInt = 0u
 
@@ -16,10 +16,14 @@ class MapTile {
             return animals.toList().sortedDescending()
         }
 
-    val animalStrongest: Animal
-        get() {
-            return animals.max()
-        }
+    fun animalEnterBuffer(animal: Animal) {
+        animalEnterBuffer.add(animal)
+    }
+
+    fun animalEnterBufferApply() {
+        animalEnterBuffer.stream().forEach { animals.add(it) }
+        animalEnterBuffer.clear()
+    }
 
     fun animalEnter(animal: Animal) {
         animals.add(animal)
@@ -30,14 +34,15 @@ class MapTile {
     }
 
     fun matingPhase() {
-        val animalsToMate = animals.toList().sortedDescending().stream().filter{it.ableToMate()}.toList()
+        if (animals.size < 2) return // no two mating candidates
+        val animalsToMate = animals.toList().sortedDescending().filter{it.ableToMate()}
         if (animalsToMate.size < 2) return // no two mating candidates
         animals.add(animalsToMate[0].mate(animalsToMate[1]))
     }
 
     fun eatingPhase() {
         if (animals.isEmpty()) return // no eating candidate
-        val animalToEat = animalStrongest
+        val animalToEat = animals.max()
         animals.remove(animalToEat)
         animalToEat.eat()
         animals.add(animalToEat)
@@ -45,6 +50,7 @@ class MapTile {
     }
 
     fun agePhase() {
+        if (animals.isEmpty()) return // no ageing candidate
         val animalsToAge = animals.iterator()
         while (animalsToAge.hasNext()) {
             animalsToAge.next().age()
@@ -52,7 +58,8 @@ class MapTile {
     }
 
     fun deathPhase() {
-        val dead = animals.stream().filter{it.isDead()}.toList()
+        if (animals.isEmpty()) return // no death candidate
+        val dead = animals.filter{it.isDead()}.toList()
         for (animal in dead) {
             animals.remove(animal)
         }

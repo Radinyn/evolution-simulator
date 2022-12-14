@@ -38,4 +38,11 @@ enum class Orientation {
             WEST_NORTH -> Vector2d(-1, 1)
         }
     }
+
+    companion object {
+        fun fromInt(value: Int): Orientation {
+            assert(value < enumValues<Orientation>().size && value >= 0)
+            return Orientation.values()[value]
+        }
+    }
 }
