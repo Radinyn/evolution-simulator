@@ -10,13 +10,16 @@ class Animal(private var position: Vector2d,
              private val genome: Genome,
              private val params: SimulationParameters)
     : Comparable<Animal> {
-    private var genomeIter: GenomeIterator = genome.iterator()
+    private var genomeIter: GenomeCyclicIterator = genome.cyclicIterator()
 
     val animalEnergy: Int
         get() {return this.energy}
 
     val animalAge: Int
         get() {return this.age}
+
+    val animalPositon: Vector2d
+        get() {return this.position}
 
     val animalNumOfChildren: Int
         get() {return this.numOfChildren}
@@ -38,8 +41,8 @@ class Animal(private var position: Vector2d,
         return energy <= 0
     }
 
-    fun nextGene(): UInt {
-        return genomeIter.next()
+    fun move(): Vector2d {
+        return position + Orientation.fromInt(genomeIter.next().toInt()).toVec()
     }
 
     fun mate(other: Animal): Animal {
