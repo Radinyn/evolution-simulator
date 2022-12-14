@@ -31,7 +31,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, Genome.generateRandom(params), params)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, Genome.generateRandom(params), params)
 
-        val tile = MapTile()
+        val tile = MapTile(false, 0, 0)
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -51,7 +51,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, Genome.generateRandom(params), params)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, Genome.generateRandom(params), params)
 
-        val tile = MapTile()
+        val tile = MapTile(false, 0, 0)
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -81,7 +81,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, Genome.generateRandom(params), params)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, Genome.generateRandom(params), params)
 
-        val tile = MapTile()
+        val tile = MapTile(false, 0, 0)
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -111,7 +111,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, Genome.generateRandom(params), params)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, Genome.generateRandom(params), params)
 
-        val tile = MapTile()
+        val tile = MapTile(false, 0, 0)
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -141,7 +141,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, Genome.generateRandom(params), params)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, Genome.generateRandom(params), params)
 
-        val tile = MapTile()
+        val tile = MapTile(false, 0, 0)
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)

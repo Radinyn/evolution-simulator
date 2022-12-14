@@ -4,6 +4,8 @@ import kotlin.math.floor
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
 class RandomVariableTest {
 
     @Test fun intervalSearchNormalSimple() {
@@ -38,6 +40,15 @@ class RandomVariableTest {
                 }
                 assertEquals(targetIdx, x.intervalBinarySearch(double))
             }
+        }
+    }
+
+    @Test fun overflow() {
+        val x = RandomVariable(mutableListOf(1.0,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.01))
+        val list = x.randomList(15)
+        assertEquals(10, list.count())
+        for (i in 0 until 10) {
+            assertTrue { list.contains(i) }
         }
     }
 }
