@@ -8,7 +8,7 @@ class Map(private val params: SimulationParameters) {
         // handle MapType variants
         controlPos = when (params.mapType) {
             MapType.GLOBE -> {
-                { pos -> pos } // TODO implement actual logic for this motherfucker
+                { pos -> pos } // TODO implement actual logic for this map type
             }
             MapType.PORTAL -> {
                 { pos -> pos } // TODO for this too
