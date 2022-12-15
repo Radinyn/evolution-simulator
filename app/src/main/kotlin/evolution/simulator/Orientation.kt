@@ -26,6 +26,10 @@ enum class Orientation {
         return this - 1
     }
 
+    fun opposite(): Orientation {
+        return Orientation.values()[(this.ordinal + enumValues<Orientation>().size/2) % enumValues<Orientation>().size]
+    }
+
     fun toVec(): Vector2d {
         return when (this) {
             NORTH -> Vector2d(0,1)

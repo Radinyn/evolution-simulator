@@ -91,4 +91,15 @@ class OrientationTest {
                     orient.plus(7).toVec()
         )
     }
+
+    @Test fun opposite() {
+        assertEquals(Orientation.SOUTH, Orientation.NORTH.opposite())
+        assertEquals(Orientation.SOUTH_WEST, Orientation.NORTH_EAST.opposite())
+        assertEquals(Orientation.WEST, Orientation.EAST.opposite())
+        assertEquals(Orientation.WEST_NORTH, Orientation.EAST_SOUTH.opposite())
+        assertEquals(Orientation.NORTH, Orientation.SOUTH.opposite())
+        assertEquals(Orientation.NORTH_EAST, Orientation.SOUTH_WEST.opposite())
+        assertEquals(Orientation.EAST, Orientation.WEST.opposite())
+        assertEquals(Orientation.EAST_SOUTH, Orientation.WEST_NORTH.opposite())
+    }
 }
