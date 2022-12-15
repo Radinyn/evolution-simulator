@@ -6,11 +6,12 @@ class Animal(private var position: Vector2d,
              private var orientation: Orientation,
              private var energy: Int,
              private var age: Int,
-             private var numOfChildren: Int,
+             private var childrenCount: Int,
+             private var plantCount: Int,
              private val genome: Genome,
-             private val params: SimulationParameters)
+             private val strategy: Strategy)
     : Comparable<Animal> {
-    private var genomeIter: GenomeCyclicIterator = genome.cyclicIterator()
+    private var genomeIterator: GenomeCyclicIterator = genome.iterator()
 
     val animalEnergy: Int
         get() {return this.energy}
@@ -21,8 +22,11 @@ class Animal(private var position: Vector2d,
     val animalPositon: Vector2d
         get() {return this.position}
 
-    val animalNumOfChildren: Int
-        get() {return this.numOfChildren}
+    val animalChildrenCount: Int
+        get() {return this.childrenCount}
+
+    val animalPlantCount: Int
+        get() {return this.plantCount}
 
     fun age() {
         energy -= 1 // energy loss per day (fixed value)
@@ -30,11 +34,12 @@ class Animal(private var position: Vector2d,
     }
 
     fun eat() {
-        energy += params.plantEnergy
+        energy += strategy.params.plantEnergy
+        plantCount += 1
     }
 
     fun ableToMate(): Boolean {
-        return energy >= params.stuffedThreshold
+        return energy >= strategy.params.stuffedThreshold && energy >= strategy.params.reproductionCost
     }
 
     fun isDead(): Boolean {
@@ -42,33 +47,31 @@ class Animal(private var position: Vector2d,
     }
 
     fun move(): Vector2d {
-        return position + Orientation.fromInt(genomeIter.next().toInt()).toVec()
+        return position + Orientation.fromInt(genomeIterator.next().toInt()).toVec()
     }
 
     fun mate(other: Animal): Animal {
         assert(this.ableToMate() && other.ableToMate())
         val offspringGenome: Genome = genome.cross(other.genome, energy.toFloat() / (energy.toFloat() + other.energy.toFloat()))
-        this.energy -= params.reproductionCost
-        this.numOfChildren += 1
-        other.energy -= params.reproductionCost
-        other.numOfChildren += 1
-        return Animal(position,
+        this.energy -= strategy.params.reproductionCost
+        this.childrenCount += 1
+        other.energy -= strategy.params.reproductionCost
+        other.childrenCount += 1
+        return Animal(
+            position,
             orientation,
-            2 * params.reproductionCost,
+            2 * strategy.params.reproductionCost,
+            0,
             0,
             0,
             offspringGenome,
-            params)
+            strategy)
     }
 
     override fun compareTo(other: Animal): Int {
         return if (energy != other.energy) energy - other.energy
         else if (age != other.age) age - other.age
-        else if (numOfChildren != other.numOfChildren) numOfChildren - other.numOfChildren
+        else if (childrenCount != other.childrenCount) childrenCount - other.childrenCount
         else (Random.nextInt() % 2) - 1 // -1 or 0 or 1
-    }
-
-    fun getEnergy(): Int {
-        return energy
     }
 }

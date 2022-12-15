@@ -51,7 +51,7 @@ data class SimulationParameters(
     val mutationMaxNum: Int,            // maksymalna liczba mutacji u potomków
     val mutationType: MutationType,     // wariant mutacji
     val genomeLength: Int,              // długość genomu zwierzaków
-    val animalBehavior: AnimalBehavior, // wariant zachowania zwierzaków 
+    val animalBehavior: AnimalBehavior, // wariant zachowania zwierzaków
 )
 
 /*

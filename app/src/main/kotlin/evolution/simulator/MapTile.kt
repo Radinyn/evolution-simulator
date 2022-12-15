@@ -5,14 +5,20 @@ package evolution.simulator
 handles mating and eating by strongest animal (one with the highest energy) also aging and plant growth on this tile
  */
 
-class MapTile (var plant: Boolean, var favor: Int, val corpsePenalty: Int){
-    private val animalEnterBuffer: ArrayList<Animal> = ArrayList()
+class MapTile ( private val growthProbFunc: (Int) -> Double){
     val animals = HashSet<Animal>()
-    private var corpses: Int = 0
+    private val animalEnterBuffer: ArrayList<Animal> = ArrayList()
+    private var corpses = 0
+    private var plant = false
 
     val growthProbability: Double
         get() {
-            return if (!plant) {(1.0 + favor.toDouble())/(1.0 + corpsePenalty * corpses.toDouble())} else {0.0}
+            return if (!plant) {growthProbFunc(corpses)} else {0.0}
+        }
+
+    val hasPlant: Boolean
+        get() {
+            return plant
         }
 
     val animalsSorted: List<Animal>
