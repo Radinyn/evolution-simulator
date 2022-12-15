@@ -22,10 +22,10 @@ class Grid(width: Int, height: Int) {
 
     init {
         for (i in 1..height) {
-            this.gridPane.rowConstraints.add(RowConstraints(20.0))
+            this.gridPane.rowConstraints.add(RowConstraints(40.0))
         }
         for (i in 1..width) {
-            this.gridPane.columnConstraints.add(ColumnConstraints(20.0))
+            this.gridPane.columnConstraints.add(ColumnConstraints(40.0))
         }
     }
 
@@ -34,7 +34,7 @@ class Grid(width: Int, height: Int) {
             gridPane.children.clear()
             for (i in 0 until width) {
                 for (j in 0 until height) {
-                    gridPane.add(GridElementBox("$i , $j").vbox, i, j)
+                    gridPane.add(GridElementBox("$i , $j").asNode(), i, j)
                 }
             }
 
@@ -42,6 +42,10 @@ class Grid(width: Int, height: Int) {
             //     gridPane.add(nodeList[0].vbox, vec2.x, vec2.y)
             // }
         }
+    }
+
+    fun asNode(): GridPane {
+        return gridPane
     }
 
 }
