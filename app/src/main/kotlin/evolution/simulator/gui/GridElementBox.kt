@@ -14,15 +14,19 @@ class GridElementBox(element: String) {
     init {
         val image = Image(FileInputStream("src/main/resources/test.jpeg"))
         val imageView = ImageView(image)
-        imageView.fitWidth = 20.0
-        imageView.fitHeight = 20.0
+        imageView.fitWidth = 40.0
+        imageView.fitHeight = 40.0
         this.vbox.onMousePressed = EventHandler<Event> {
-            imageView.rotate = 180.0
+            imageView.rotate = (imageView.rotate + 90) % 360
         }
-        this.vbox.onMouseReleased = EventHandler<Event> {
-            imageView.rotate = 0.0
-        }
+        // this.vbox.onMouseReleased = EventHandler<Event> {
+        //     imageView.rotate = 0.0
+        // }
         this.vbox.children.addAll(imageView)
         this.vbox.alignment = Pos.CENTER
+    }
+
+    fun asNode(): VBox {
+        return vbox
     }
 }
