@@ -1,11 +1,9 @@
 package evolution.simulator
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 class MapTest {
-    private val params = SimulationParameters(
-        animalBehavior = AnimalBehavior.RANDOM,
+    private val strategy = Strategy(SimulationParameters(
+        animalBehavior = AnimalBehavior.STRICT,
         genomeLength = 10,
         initAnimalEnergy = 10,
         initAnimalNum = 10,
@@ -21,11 +19,9 @@ class MapTest {
         width = 0,
         height = 0,
         stuffedThreshold = 5,
-    )
+    ))
 
     @Test fun moveBufferNoBoundryExceed() {
-        val map = Map(params)
-
-
+        val map = Map(strategy)
     }
 }
