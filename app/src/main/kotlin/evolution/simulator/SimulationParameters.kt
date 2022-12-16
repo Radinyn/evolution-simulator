@@ -7,7 +7,7 @@ enum class MapType {
         to pozostaje na polu na którym był, a jego kierunek zmienia się na odwrotny). */
     GLOBE,
     /*  piekielny portal - jeżeli zwierzak wyjdzie poza krawędź mapy,
-        to trafia do magicznego portalujego energia zmniejsza się o pewną wartość (taką samą jak w przypadku generacji potomka),
+        to trafia do magicznego portalu jego energia zmniejsza się o pewną wartość (taką samą jak w przypadku generacji potomka),
         a następnie jest teleportowany w nowe, losowe miejsce na mapie. */
     PORTAL
 }

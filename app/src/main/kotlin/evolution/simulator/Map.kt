@@ -1,5 +1,7 @@
 package evolution.simulator
 
+import kotlin.streams.asStream
+
 class Map(private val strategy: Strategy) {
     private val tiles: Array<Array<MapTile>> = Array(strategy.params.width) {x -> Array(strategy.params.height) {y -> MapTile(strategy.plantStrategy(Vector2d(x,y)))} }
 
@@ -8,7 +10,7 @@ class Map(private val strategy: Strategy) {
     }
 
     fun place(animal: Animal) {
-        val pos = strategy.mapStrategy(animal.animalPositon)
+        val pos = animal.animalPosition
         tiles[pos.x][pos.y].animalEnterBuffer(animal)
         tiles[pos.x][pos.y].animalEnterBufferApply()
     }
@@ -18,9 +20,12 @@ class Map(private val strategy: Strategy) {
             column.iterator().forEach {
                 it.animals.iterator().forEach {
                         animal -> run {
-                        val newPos = strategy.mapStrategy(animal.move())
-                        tiles[newPos.x][newPos.y].animalEnterBuffer(animal)
-                        it.animalLeave(animal)
+                        val oldPos = animal.animalPosition
+                        val newPos = animal.move(strategy.mapStrategy)
+                        if (newPos != oldPos) {
+                            tiles[newPos.x][newPos.y].animalEnterBuffer(animal)
+                            it.animalLeave(animal)
+                        }
                     }
                 }
         }}
@@ -32,6 +37,8 @@ class Map(private val strategy: Strategy) {
     }
 
     fun plantGrowthPhase() {
-
+        val tilesFlat = tiles.iterator().asSequence().asStream().flatMap { column -> column.iterator().asSequence().asStream() }.toList()
+        val x = RandomVariable(tilesFlat.stream().map { it.growthProbability }.toList())
+        x.randomList(strategy.params.plantGrowthRate).forEach { tilesFlat[it].growPlant() }
     }
 }

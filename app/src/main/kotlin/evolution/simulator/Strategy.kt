@@ -1,14 +1,24 @@
 package evolution.simulator
 
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 class Strategy( val params: SimulationParameters ) {
-    private val EquatorFavorCoefficient = 1
-    val animalStrategy: (index: Int, len: Int) -> Int // dependent on animalBehavior takes current index and len of genome return new index to return from
-    val plantStrategy: (pos: Vector2d) -> ((corpses: Int) -> Double) // dependent on plantGrowthType returns function that will be evaluated by each mapTile when asked about its probability of growth
-    val mutationStrategy: (index: UInt) -> UInt // dependent on mutationType mutates given gene
-    val mapStrategy: (pos: Vector2d) -> Vector2d // dependent on mapType takes position and applies transformation dependent on MapType variant
+    private val equatorFavorCoefficient = 1
+
+    // depends on animalBehavior takes current index and len of genome return index according to chosen strategy
+    val animalStrategy: (index: Int, len: Int) -> Int
+
+    // depends on plantGrowthType returns function that will be evaluated by each mapTile when asked about its probability of growth
+    val plantStrategy: (pos: Vector2d) -> ((corpses: Int) -> Double)
+
+    // depends on mutationType mutates given gene according to chosen strategy
+    val mutationStrategy: (index: UInt) -> UInt
+
+    // depends on mapType takes position and applies transformation according to Map variant, returns new position and cost of movement
+    val mapStrategy: (pos: Vector2d) -> Pair<Vector2d, Int>
 
     init {
         animalStrategy = when (params.animalBehavior) {
@@ -29,7 +39,7 @@ class Strategy( val params: SimulationParameters ) {
             GrowthType.EQUATOR -> {
                 { pos ->
                     if (isEquator(pos)){
-                        { _ -> 1.0 + EquatorFavorCoefficient }
+                        { _ -> 1.0 + equatorFavorCoefficient }
                     }else {
                         { _ -> 1.0 }
                     }
@@ -50,11 +60,22 @@ class Strategy( val params: SimulationParameters ) {
             }
         }
         mapStrategy = when (params.mapType) {
+            // map start from coordinates 0,0 at lower left corner
             MapType.GLOBE -> {
-                { pos -> pos } // TODO implement actual logic for this
+                // no cost per move, loop around left and right (x), no access to poles (y)
+                { pos -> Pair(Vector2d((pos.x + params.width) % params.width, min(max(pos.y, 0), params.height)), 0) }
             }
             MapType.PORTAL -> {
-                { pos -> pos } // TODO for this too
+                { pos ->
+                    // when try to go out of map
+                    if (pos.x < 0 || pos.x >= params.width || pos.y < 0 || pos.y >= params.height) {
+                        // random pos and penalty
+                        Pair(Vector2d(Random.nextInt() % params.width, Random.nextInt() % params.height), params.reproductionCost)
+                    }else{
+                        // otherwise normal movement no cost per move
+                        Pair(pos, 0)
+                    }
+                }
             }
         }
     }

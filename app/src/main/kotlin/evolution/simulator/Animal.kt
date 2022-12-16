@@ -19,7 +19,7 @@ class Animal(private var position: Vector2d,
     val animalAge: Int
         get() {return this.age}
 
-    val animalPositon: Vector2d
+    val animalPosition: Vector2d
         get() {return this.position}
 
     val animalChildrenCount: Int
@@ -46,8 +46,12 @@ class Animal(private var position: Vector2d,
         return energy <= 0
     }
 
-    fun move(): Vector2d {
-        return position + Orientation.fromInt(genomeIterator.next().toInt()).toVec()
+    fun move(transform: (pos: Vector2d) -> Pair<Vector2d, Int>): Vector2d {
+        orientation = Orientation.fromInt(genomeIterator.next().toInt())
+        val pair = transform(position + orientation.toVec())
+        position = pair.first
+        energy -= pair.second
+        return position
     }
 
     fun mate(other: Animal): Animal {
