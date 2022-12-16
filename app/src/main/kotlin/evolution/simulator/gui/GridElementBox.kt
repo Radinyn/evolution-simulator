@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox
 import java.io.FileInputStream
 
 class GridElementBox(element: String) {
-    val vbox: VBox = VBox()
+    private val vbox: VBox = VBox()
 
     init {
         val image = Image(FileInputStream("src/main/resources/test.jpeg"))

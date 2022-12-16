@@ -1,8 +1,8 @@
 package evolution.simulator.gui
 
-import javafx.scene.chart.LineChart; 
-import javafx.scene.chart.NumberAxis; 
-import javafx.scene.chart.XYChart; 
+import javafx.scene.chart.LineChart
+import javafx.scene.chart.NumberAxis
+import javafx.scene.chart.XYChart
 
 class Chart {
     private val lineChart: LineChart<Number, Number>
@@ -18,11 +18,11 @@ class Chart {
         lineChart.data.add(series)
     }
 
-    public fun asNode(): LineChart<Number, Number> {
+    fun asNode(): LineChart<Number, Number> {
         return lineChart
     }
 
-    public fun addPoint(x: Number, y: Number) {
+    fun addPoint(x: Number, y: Number) {
         series.data.add(XYChart.Data(x, y))
     } 
 }

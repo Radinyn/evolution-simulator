@@ -8,7 +8,7 @@ import javafx.scene.layout.RowConstraints
 
 class Grid(width: Int, height: Int) {
     private val map: MutableMap<Vector2d, ArrayList<GridElementBox>> = HashMap()
-    val gridPane = GridPane()
+    private val gridPane = GridPane()
 
     val height: Int
         get() {
