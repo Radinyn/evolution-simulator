@@ -37,11 +37,15 @@ class Grid(width: Int, height: Int) {
             gridPane.children.clear()
             for (i in 0 until width) {
                 for (j in 0 until height) {
+<<<<<<< HEAD
                     val image = Image(FileInputStream("src/main/resources/test.jpeg"))
                     val imageView = ImageView(image)
                     imageView.fitWidth = 40.0
                     imageView.fitHeight = 40.0
                     gridPane.add(GridElementBox(listOf(imageView)).asNode(), i, j)
+=======
+                    gridPane.add(GridElementBox("$i , $j").asNode(), i, j)
+>>>>>>> radinyn/dec15
                 }
             }
 
