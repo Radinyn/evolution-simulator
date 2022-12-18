@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 class Strategy( val params: SimulationParameters ) {
     // describes how much equator fields are favored in growingPhase
-    private val equatorFavorCoefficient = 1
+    private val equatorFavorCoefficient = 10
 
     // depends on animalBehavior takes current index and len of genome return index according to chosen strategy
     val animalStrategy: (index: Int, len: Int) -> Int

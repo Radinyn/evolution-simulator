@@ -1,11 +1,15 @@
 package evolution.simulator
 
+import evolution.simulator.gui.Resources
+import javafx.scene.Node
+import javafx.scene.image.ImageView
+
 
 /* class that handles map entities on same map position
 handles mating and eating by strongest animal (one with the highest energy) also aging and plant growth on this tile
  */
 
-class MapTile ( private val growthProbFunc: (Int) -> Double){
+class MapTile ( private val growthProbFunc: (Int) -> Double, private val resources: Resources): IDisplay {
     val animals = HashSet<Animal>()
     private val animalEnterBuffer: ArrayList<Animal> = ArrayList()
     private var corpses = 0
@@ -77,5 +81,22 @@ class MapTile ( private val growthProbFunc: (Int) -> Double){
         for (animal in dead) {
             animals.remove(animal)
         }
+    }
+
+    override fun display(): Collection<Node> {
+        val nodes = ArrayList<Node>()
+        if (plant) {
+            val imageView = ImageView(resources.plantImage)
+            imageView.fitWidth = resources.plantImageWidth
+            imageView.fitHeight = resources.plantImageHeight
+            nodes.add(imageView)
+        }
+        repeat(animals.size) {
+            val imageView = ImageView(resources.animalImage)
+            imageView.fitWidth = resources.animalImageWidth
+            imageView.fitHeight = resources.animalImageHeight
+            nodes.add(imageView)
+        }
+        return nodes
     }
 }

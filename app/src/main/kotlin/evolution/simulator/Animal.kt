@@ -10,7 +10,7 @@ class Animal(private var position: Vector2d,
              private var plantCount: Int,
              private val genome: Genome,
              private val strategy: Strategy)
-    : Comparable<Animal> {
+    : Comparable<Animal>{
     private var genomeIterator: GenomeCyclicIterator = genome.iterator()
 
     val animalEnergy: Int
