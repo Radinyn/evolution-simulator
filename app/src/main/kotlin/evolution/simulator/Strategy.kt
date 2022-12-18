@@ -6,7 +6,6 @@ import kotlin.math.min
 import kotlin.random.Random
 
 class Strategy( val params: SimulationParameters ) {
-
     // describes how much equator fields are favored in growingPhase
     private val equatorFavorCoefficient = 1
 
