@@ -1,7 +1,5 @@
 package evolution.simulator
 
-import kotlin.streams.asStream
-
 class Map(private val strategy: Strategy) {
     private val tiles: Array<Array<MapTile>> = Array(strategy.params.width) {x -> Array(strategy.params.height) {y -> MapTile(strategy.plantStrategy(Vector2d(x,y)))} }
 
@@ -37,8 +35,8 @@ class Map(private val strategy: Strategy) {
     }
 
     fun plantGrowthPhase() {
-        val tilesFlat = tiles.iterator().asSequence().asStream().flatMap { column -> column.iterator().asSequence().asStream() }.toList()
-        val x = RandomVariable(tilesFlat.stream().map { it.growthProbability }.toList())
+        val tilesFlat = tiles.asSequence().flatMap { column -> column.asSequence() }.toList()
+        val x = RandomVariable(tilesFlat.map { it.growthProbability }.toMutableList())
         x.randomList(strategy.params.plantGrowthRate).forEach { tilesFlat[it].growPlant() }
     }
 }
