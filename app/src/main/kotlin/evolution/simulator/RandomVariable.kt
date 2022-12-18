@@ -10,7 +10,7 @@ class RandomVariable(private var dist: MutableList<Double>) {
         distFunc()
     }
 
-    fun randomIndex(): Int {
+    private fun randomIndex(): Int {
         val random = Random.nextDouble()
         return intervalBinarySearch(random)
     }

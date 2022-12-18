@@ -1,9 +1,11 @@
 package evolution.simulator
 
-import kotlin.streams.asStream
+import evolution.simulator.gui.GridElementBox
+import evolution.simulator.gui.Resources
+import javafx.scene.Node
 
-class Map(private val strategy: Strategy) {
-    private val tiles: Array<Array<MapTile>> = Array(strategy.params.width) {x -> Array(strategy.params.height) {y -> MapTile(strategy.plantStrategy(Vector2d(x,y)))} }
+class Map(private val strategy: Strategy, private val resources: Resources): IDisplay {
+    private val tiles: Array<Array<MapTile>> = Array(strategy.params.width) {x -> Array(strategy.params.height) {y -> MapTile(strategy.plantStrategy(Vector2d(x,y)), resources)} }
 
     fun getTile(pos: Vector2d): MapTile {
         return tiles[pos.x][pos.y]
@@ -37,8 +39,20 @@ class Map(private val strategy: Strategy) {
     }
 
     fun plantGrowthPhase() {
-        val tilesFlat = tiles.iterator().asSequence().asStream().flatMap { column -> column.iterator().asSequence().asStream() }.toList()
-        val x = RandomVariable(tilesFlat.stream().map { it.growthProbability }.toList())
+        val tilesFlat = tiles.asSequence().flatMap { column -> column.asSequence() }.toList()
+        val x = RandomVariable(tilesFlat.map { it.growthProbability }.toMutableList())
         x.randomList(strategy.params.plantGrowthRate).forEach { tilesFlat[it].growPlant() }
+    }
+
+    override fun display(): Collection<Node> {
+        val nodes = ArrayList<Node>()
+        for (x in 0 until strategy.params.width) {
+            for (y in 0 until strategy.params.height) {
+                val tileNodes = getTile(Vector2d(x,y)).display()
+                val gridElementBox = GridElementBox(tileNodes).asNode()
+                nodes.add(gridElementBox)
+            }
+        }
+        return nodes
     }
 }

@@ -1,5 +1,6 @@
 package evolution.simulator
 
+import evolution.simulator.gui.Resources
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -31,7 +32,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, 0, Genome.generateRandom(strategy), strategy)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, 0, Genome.generateRandom(strategy), strategy)
 
-        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)))
+        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -51,7 +52,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, 0, Genome.generateRandom(strategy), strategy)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, 0, Genome.generateRandom(strategy), strategy)
 
-        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)))
+        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -81,7 +82,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, 0, Genome.generateRandom(strategy), strategy)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, 0, Genome.generateRandom(strategy), strategy)
 
-        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)))
+        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -111,7 +112,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, 0, Genome.generateRandom(strategy), strategy)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, 0, Genome.generateRandom(strategy), strategy)
 
-        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)))
+        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -141,7 +142,7 @@ class MapTileTests {
         val animal3 = Animal(Vector2d(0,0), Orientation.NORTH, 7, 0, 0, 0, Genome.generateRandom(strategy), strategy)
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, 0, Genome.generateRandom(strategy), strategy)
 
-        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)))
+        val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
         tile.animalEnter(animal1)
         tile.animalEnter(animal2)
@@ -149,11 +150,6 @@ class MapTileTests {
         tile.animalEnter(animal4)
 
         var animals = tile.animalsSorted
-
-        for (animal in animals) {
-            println(animal.animalEnergy)
-        }
-
         assertEquals(4, animals.size)
         assertEquals(-3, animals[3].animalEnergy)
         assertEquals(-1, animals[2].animalEnergy)
@@ -163,11 +159,6 @@ class MapTileTests {
         tile.matingPhase()
 
         animals = tile.animalsSorted
-
-        for (animal in animals) {
-            println(animal.animalEnergy)
-        }
-
         assertEquals(5, animals.size)
         assertEquals(-3, animals[4].animalEnergy)
         assertEquals(-1, animals[3].animalEnergy)

@@ -2,13 +2,16 @@ package evolution.simulator.gui
 
 import evolution.simulator.Vector2d
 import javafx.application.Platform
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.scene.layout.ColumnConstraints
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.RowConstraints
+import java.io.FileInputStream
 
 class Grid(width: Int, height: Int) {
     private val map: MutableMap<Vector2d, ArrayList<GridElementBox>> = HashMap()
-    val gridPane = GridPane()
+    private val gridPane = GridPane()
 
     val height: Int
         get() {
@@ -34,7 +37,11 @@ class Grid(width: Int, height: Int) {
             gridPane.children.clear()
             for (i in 0 until width) {
                 for (j in 0 until height) {
-                    gridPane.add(GridElementBox("$i , $j").asNode(), i, j)
+                    val image = Image(FileInputStream("src/main/resources/test.jpeg"))
+                    val imageView = ImageView(image)
+                    imageView.fitWidth = 40.0
+                    imageView.fitHeight = 40.0
+                    gridPane.add(GridElementBox(listOf(imageView)).asNode(), i, j)
                 }
             }
 
