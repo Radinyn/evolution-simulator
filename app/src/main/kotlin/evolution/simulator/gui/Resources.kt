@@ -5,10 +5,10 @@ import java.io.FileInputStream
 
 class Resources {
     val plantImage = Image(FileInputStream("src/main/resources/plant.png"))
-    val plantImageWidth = 10.0
-    val plantImageHeight = 10.0
+    val plantImageWidth = 40.0
+    val plantImageHeight = 40.0
 
     val animalImage = Image(FileInputStream("src/main/resources/animal.png"))
-    val animalImageWidth = 10.0
-    val animalImageHeight = 10.0
+    val animalImageWidth = 40.0
+    val animalImageHeight = 40.0
 }

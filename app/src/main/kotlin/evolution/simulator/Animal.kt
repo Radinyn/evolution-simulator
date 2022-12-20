@@ -28,6 +28,9 @@ class Animal(private var position: Vector2d,
     val animalPlantCount: Int
         get() {return this.plantCount}
 
+    val animalOrientation: Orientation
+        get() {return this.orientation}
+
     fun age() {
         energy -= 1 // energy loss per day (fixed value)
         age += 1

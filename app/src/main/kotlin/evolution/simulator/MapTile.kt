@@ -91,10 +91,12 @@ class MapTile ( private val growthProbFunc: (Int) -> Double, private val resourc
             imageView.fitHeight = resources.plantImageHeight
             nodes.add(imageView)
         }
-        repeat(animals.size) {
+
+        for (animal in animals) {
             val imageView = ImageView(resources.animalImage)
             imageView.fitWidth = resources.animalImageWidth
             imageView.fitHeight = resources.animalImageHeight
+            imageView.rotate = animal.animalOrientation.toDegrees()
             nodes.add(imageView)
         }
         return nodes

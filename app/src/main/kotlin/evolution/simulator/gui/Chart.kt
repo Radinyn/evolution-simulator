@@ -3,6 +3,7 @@ package evolution.simulator.gui
 import javafx.scene.chart.LineChart
 import javafx.scene.chart.NumberAxis
 import javafx.scene.chart.XYChart
+import javafx.application.Platform
 
 class Chart {
     private val lineChart: LineChart<Number, Number>
@@ -23,6 +24,8 @@ class Chart {
     }
 
     fun addPoint(x: Number, y: Number) {
-        series.data.add(XYChart.Data(x, y))
+        Platform.runLater {
+            series.data.add(XYChart.Data(x, y))
+        }
     } 
 }
