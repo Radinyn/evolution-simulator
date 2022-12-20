@@ -35,6 +35,9 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+
+    // Reflection
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
 }
 
 application {

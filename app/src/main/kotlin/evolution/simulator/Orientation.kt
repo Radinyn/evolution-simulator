@@ -43,6 +43,19 @@ enum class Orientation {
         }
     }
 
+    fun toDegrees(): Double {
+        return when (this) {
+            NORTH -> 0.0
+            NORTH_EAST -> 45.0
+            EAST -> 90.0
+            EAST_SOUTH -> 135.0
+            SOUTH -> 180.0
+            SOUTH_WEST -> 225.0
+            WEST -> 270.0
+            WEST_NORTH -> 315.0
+        }
+    }
+
     companion object {
         fun fromInt(value: Int): Orientation {
             assert(value < enumValues<Orientation>().size && value >= 0)

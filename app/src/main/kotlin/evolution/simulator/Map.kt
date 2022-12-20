@@ -44,7 +44,7 @@ class Map(private val strategy: Strategy, private val resources: Resources): IDi
         x.randomList(strategy.params.plantGrowthRate).forEach { tilesFlat[it].growPlant() }
     }
 
-    override fun display(): Collection<Node> {
+    override fun display(): List<Node> {
         val nodes = ArrayList<Node>()
         for (x in 0 until strategy.params.width) {
             for (y in 0 until strategy.params.height) {
