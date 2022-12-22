@@ -34,12 +34,13 @@ class MapTileTests {
 
         val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
-        tile.animalEnter(animal1)
-        tile.animalEnter(animal2)
-        tile.animalEnter(animal3)
-        tile.animalEnter(animal4)
+        tile.animalEnterBuffer(animal1)
+        tile.animalEnterBuffer(animal2)
+        tile.animalEnterBuffer(animal3)
+        tile.animalEnterBuffer(animal4)
+        tile.animalEnterBufferApply()
 
-        tile.deathPhase()
+        tile.deathPhase(0u)
 
         val animals = tile.animalsSorted
         assertEquals(2, animals.size)
@@ -54,10 +55,11 @@ class MapTileTests {
 
         val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
-        tile.animalEnter(animal1)
-        tile.animalEnter(animal2)
-        tile.animalEnter(animal3)
-        tile.animalEnter(animal4)
+        tile.animalEnterBuffer(animal1)
+        tile.animalEnterBuffer(animal2)
+        tile.animalEnterBuffer(animal3)
+        tile.animalEnterBuffer(animal4)
+        tile.animalEnterBufferApply()
 
         var animals = tile.animalsSorted
         assertEquals(4, animals.size)
@@ -83,11 +85,13 @@ class MapTileTests {
         val animal4 = Animal(Vector2d(0,0), Orientation.NORTH, -3, 0, 0, 0, Genome.generateRandom(strategy), strategy)
 
         val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
+        tile.growPlant()
 
-        tile.animalEnter(animal1)
-        tile.animalEnter(animal2)
-        tile.animalEnter(animal3)
-        tile.animalEnter(animal4)
+        tile.animalEnterBuffer(animal1)
+        tile.animalEnterBuffer(animal2)
+        tile.animalEnterBuffer(animal3)
+        tile.animalEnterBuffer(animal4)
+        tile.animalEnterBufferApply()
 
         var animals = tile.animalsSorted
         assertEquals(4, animals.size)
@@ -114,10 +118,11 @@ class MapTileTests {
 
         val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
-        tile.animalEnter(animal1)
-        tile.animalEnter(animal2)
-        tile.animalEnter(animal3)
-        tile.animalEnter(animal4)
+        tile.animalEnterBuffer(animal1)
+        tile.animalEnterBuffer(animal2)
+        tile.animalEnterBuffer(animal3)
+        tile.animalEnterBuffer(animal4)
+        tile.animalEnterBufferApply()
 
         var animals = tile.animalsSorted
         assertEquals(4, animals.size)
@@ -144,10 +149,11 @@ class MapTileTests {
 
         val tile = MapTile(strategy.plantStrategy(Vector2d(0,0)), Resources())
 
-        tile.animalEnter(animal1)
-        tile.animalEnter(animal2)
-        tile.animalEnter(animal3)
-        tile.animalEnter(animal4)
+        tile.animalEnterBuffer(animal1)
+        tile.animalEnterBuffer(animal2)
+        tile.animalEnterBuffer(animal3)
+        tile.animalEnterBuffer(animal4)
+        tile.animalEnterBufferApply()
 
         var animals = tile.animalsSorted
         assertEquals(4, animals.size)

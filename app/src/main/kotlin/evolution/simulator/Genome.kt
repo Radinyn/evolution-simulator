@@ -60,15 +60,33 @@ class Genome(private val strategy: Strategy, collection: Collection<UInt>) : Ite
         return GenomeCyclicIterator(strategy, genes)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+
+        other as Genome
+        if (genes != other.genes) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        // Returns the hash code value for this list. The hash code of a list is defined to be the result of hashcode of its elements.
+        // This ensures that list1.equals(list2) implies that list1.hashCode()==list2.hashCode() for any two lists, list1 and list2.
+        return genes.hashCode()
+    }
+
     companion object {
         fun generateRandom(strategy: Strategy): Genome {
-            return Genome(strategy, (0u until strategy.params.genomeLength.toUInt()).shuffled() )
+            return Genome(strategy, (0u until strategy.params.genomeLength.toUInt()).map { it % 8u }.shuffled() )
         }
     }
 }
 
 class GenomeCyclicIterator(private val strategy: Strategy, private val genes: MutableList<UInt>): Iterator<UInt> {
     private var index: Int = -1
+
+    val currentIndex: Int
+        get() {return index}
+
     override fun hasNext(): Boolean {
         return true
     }

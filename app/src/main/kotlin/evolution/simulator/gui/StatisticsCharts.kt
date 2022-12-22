@@ -1,32 +1,28 @@
 package evolution.simulator.gui
 
 import evolution.simulator.CircularBuffer
-import evolution.simulator.Statistics
-import javafx.scene.control.*
+import evolution.simulator.SimulationStatistics
+import javafx.scene.control.Tab
+import javafx.scene.control.TabPane
 import kotlin.reflect.full.memberProperties
-import kotlin.random.Random
-import javafx.application.Platform
 
 class StatisticsCharts {
-    private val buffer = CircularBuffer<Statistics>(100)
+    private val buffer = CircularBuffer<SimulationStatistics>(100)
     private val charts = HashMap<String, Chart>()
     private val tabPane = TabPane()
 
     init {
-        for (member in Statistics::class.memberProperties) {
+        for (member in SimulationStatistics::class.memberProperties) {
             if (member.name == "numOfIterations") continue
             if (member.name == "bestGenome") continue
-
-
             charts[member.name] = Chart()
             tabPane.tabs.add(Tab(member.name, charts[member.name]!!.asNode()))
         }
-        
     }
 
-    fun update(statistics: Statistics) {
+    fun update(statistics: SimulationStatistics) {
         val x = statistics.numOfIterations
-        for (member in Statistics::class.memberProperties) { 
+        for (member in SimulationStatistics::class.memberProperties) {
             if (member.name == "numOfIterations") continue
             if (member.name == "bestGenome") continue
 

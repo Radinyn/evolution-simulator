@@ -64,14 +64,14 @@ class Strategy( val params: SimulationParameters ) {
             // map start from coordinates 0,0 at lower left corner
             MapType.GLOBE -> {
                 // no cost per move, loop around left and right (x), no access to poles (y)
-                { pos -> Pair(Vector2d((pos.x + params.width) % params.width, min(max(pos.y, 0), params.height)), 0) }
+                { pos -> Pair(Vector2d((pos.x + params.width) % params.width, min(max(pos.y, 0), params.height-1)), 0) }
             }
             MapType.PORTAL -> {
                 { pos ->
                     // when try to go out of map
                     if (pos.x < 0 || pos.x >= params.width || pos.y < 0 || pos.y >= params.height) {
                         // random pos and penalty
-                        Pair(Vector2d(Random.nextInt() % params.width, Random.nextInt() % params.height), params.reproductionCost)
+                        Pair(Vector2d( abs(Random.nextInt() % params.width), abs(Random.nextInt() % params.height)), params.reproductionCost)
                     }else{
                         // otherwise normal movement no cost per move
                         Pair(pos, 0)

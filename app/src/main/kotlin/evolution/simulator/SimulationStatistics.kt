@@ -1,24 +1,28 @@
 package evolution.simulator
 
-data class Statistics(
+data class SimulationStatistics(
     // ilość iteracji symulacji
-    val numOfIterations: ULong,
+    var numOfIterations: ULong,
 
     // liczba wszystkich zwierząt,
-    val animalCount: UInt,
+    var animalCount: UInt,
 
     // liczba wszystkich roślin,
-    val plantCount: UInt,
+    var plantCount: UInt,
 
     // liczba wolnych pól,
-    val emptyTiles: UInt,
+    var emptyTiles: UInt,
 
     // najpopularniejszych genotypów,
-    val bestGenome: Genome,
+    var bestGenome: List<Genome>,
 
     // średniego poziomu energii dla żyjących zwierząt,
-    val averageEnergy: Double,
+    var averageEnergy: Double,
 
     // średniej długości życia zwierząt dla martwych zwierząt (wartość uwzględnia wszystkie nieżyjące zwierzęta - od początku symulacji),
-    val averageLifespan: Double,
-)
+    var averageLifespan: Double,
+) {
+    constructor() : this(
+        0u,0u,0u,0u, listOf(),0.0,0.0,
+    )
+}
