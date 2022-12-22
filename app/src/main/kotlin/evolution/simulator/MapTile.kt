@@ -12,6 +12,7 @@ handles mating and eating by strongest animal (one with the highest energy) also
 class MapTile ( private val growthProbFunc: (Int) -> Double, private val resources: Resources): IDisplay {
     val animals = HashSet<Animal>()
     private val animalEnterBuffer: ArrayList<Animal> = ArrayList()
+    private val animalLeaveBuffer: ArrayList<Animal> = ArrayList()
     private var corpses = 0
     private var plant = false
 
@@ -39,12 +40,13 @@ class MapTile ( private val growthProbFunc: (Int) -> Double, private val resourc
         animalEnterBuffer.clear()
     }
 
-    fun animalEnter(animal: Animal) {
-        animals.add(animal)
+    fun animalLeaveBuffer(animal: Animal) {
+        animalLeaveBuffer.add(animal)
     }
 
-    fun animalLeave(animal: Animal) {
-        animals.remove(animal)
+    fun animalLeaveBufferApply() {
+        animalLeaveBuffer.stream().forEach { animals.remove(it) }
+        animalLeaveBuffer.clear()
     }
 
     fun growPlant() {
@@ -59,7 +61,7 @@ class MapTile ( private val growthProbFunc: (Int) -> Double, private val resourc
     }
 
     fun eatingPhase() {
-        if (animals.isEmpty()) return // no eating candidate
+        if (animals.isEmpty() || !hasPlant) return // no eating candidate
         val animalToEat = animals.max()
         animals.remove(animalToEat)
         animalToEat.eat()
@@ -69,16 +71,16 @@ class MapTile ( private val growthProbFunc: (Int) -> Double, private val resourc
 
     fun agePhase() {
         if (animals.isEmpty()) return // no ageing candidate
-        val animalsToAge = animals.iterator()
-        while (animalsToAge.hasNext()) {
-            animalsToAge.next().age()
+        for (animal in animals) {
+            animal.age()
         }
     }
 
-    fun deathPhase() {
+    fun deathPhase(iterationNumber: ULong) {
         if (animals.isEmpty()) return // no death candidate
         val dead = animals.filter{it.isDead()}.toList()
         for (animal in dead) {
+            animal.deathDay = iterationNumber
             animals.remove(animal)
         }
     }
