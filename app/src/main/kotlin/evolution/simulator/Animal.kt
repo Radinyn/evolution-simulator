@@ -12,6 +12,7 @@ class Animal(private var position: Vector2d,
              private val strategy: Strategy)
     : Comparable<Animal>{
     private var genomeIterator: GenomeCyclicIterator = genome.iterator()
+    var deathDay: ULong? = null
 
     val animalEnergy: Int
         get() {return this.energy}
@@ -30,6 +31,9 @@ class Animal(private var position: Vector2d,
 
     val animalOrientation: Orientation
         get() {return this.orientation}
+
+    val animalGenome: Genome
+        get() {return this.genome}
 
     fun age() {
         energy -= 1 // energy loss per day (fixed value)
@@ -73,6 +77,10 @@ class Animal(private var position: Vector2d,
             0,
             offspringGenome,
             strategy)
+    }
+
+    fun statistics(): AnimalStatistics{
+        return AnimalStatistics(animalEnergy, plantCount, childrenCount, genome, genomeIterator.currentIndex, age, deathDay)
     }
 
     override fun compareTo(other: Animal): Int {
