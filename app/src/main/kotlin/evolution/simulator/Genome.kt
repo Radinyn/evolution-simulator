@@ -84,7 +84,7 @@ class Genome(private val strategy: Strategy, collection: Collection<UInt>) : Ite
 
     companion object {
         fun generateRandom(strategy: Strategy): Genome {
-            return Genome(strategy, (0u until strategy.params.genomeLength.toUInt()).map { it % 8u }.shuffled() )
+            return Genome(strategy, List(10) {Random.nextInt(0, 7).toUInt()} )
         }
     }
 }

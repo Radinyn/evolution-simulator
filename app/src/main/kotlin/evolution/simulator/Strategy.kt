@@ -57,7 +57,7 @@ class Strategy( val params: SimulationParameters ) {
                 { (abs(Random.nextInt()) % 8).toUInt() }
             }
             MutationType.CORRECTION -> {
-                { index -> ((index.toInt()+8)+(listOf(1, -1).random()) % 8).toUInt() }
+                { index -> (((index.toInt()+8)+(listOf(1, -1).random())) % 8).toUInt() }
             }
         }
         mapStrategy = when (params.mapType) {
