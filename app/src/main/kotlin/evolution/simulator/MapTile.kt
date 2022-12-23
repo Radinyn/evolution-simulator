@@ -1,8 +1,10 @@
 package evolution.simulator
 
 import evolution.simulator.gui.Resources
+import evolution.simulator.gui.DialogBox
 import javafx.scene.Node
 import javafx.scene.image.ImageView
+import javafx.event.*
 
 
 /* class that handles map entities on same map position
@@ -95,10 +97,16 @@ class MapTile ( private val growthProbFunc: (Int) -> Double, private val resourc
         }
 
         for (animal in animals) {
-            val imageView = ImageView(resources.animalImage)
+                //            imageView.rotate = (imageView.rotate + 90) % 360
+                //        }
+            val index = animal.animalGenome.getTopGene().toInt();
+            val imageView = ImageView(resources.animalImages[index])
             imageView.fitWidth = resources.animalImageWidth
             imageView.fitHeight = resources.animalImageHeight
             imageView.rotate = animal.animalOrientation.toDegrees()
+            imageView.onMousePressed = EventHandler<Event> {
+                val dialog = DialogBox(resources.animalImages[index], animal.toString())
+            }
             nodes.add(imageView)
         }
         return nodes

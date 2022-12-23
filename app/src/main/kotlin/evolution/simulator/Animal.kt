@@ -35,6 +35,18 @@ class Animal(private var position: Vector2d,
     val animalGenome: Genome
         get() {return this.genome}
 
+    override fun toString(): String {
+        return """
+        Position: ${this.position.toString()}
+        Orientation: ${this.orientation.toString()}
+        Energy: ${this.energy.toString()}
+        Age: ${this.age.toString()}
+        Children count: ${this.childrenCount.toString()}
+        Plant count: ${this.plantCount.toString()}
+        Genome: ${this.genome.toString()}
+        """.trimIndent()
+    }
+
     fun age() {
         energy -= 1 // energy loss per day (fixed value)
         age += 1

@@ -24,6 +24,10 @@ class ParameterBox(
     fun getValue(): Int {
         return this.slider.getValue()
     }
+
+    fun setValue(x: Int) {
+        this.slider.setValue(x)
+    }
 }
 
 class ParameterMenu {
@@ -101,6 +105,24 @@ class ParameterMenu {
             genomeLength.getValue(),
             if (animalBehavior.getValue() == 0) AnimalBehavior.STRICT else AnimalBehavior.RANDOM,
         )
+    }
 
+    fun set(params: SimulationParameters) {
+        height.setValue(params.height)
+        width.setValue(params.width)
+        mapType.setValue(if (params.mapType == MapType.GLOBE) 0 else 1)
+        initPlantsNum.setValue(params.initPlantsNum)
+        plantEnergy.setValue(params.plantEnergy)
+        plantGrowthRate.setValue(params.plantGrowthRate)
+        plantGrowthType.setValue(if (params.plantGrowthType == GrowthType.EQUATOR) 0 else 1)
+        initAnimalNum.setValue(params.initAnimalNum)
+        initAnimalEnergy.setValue(params.initAnimalEnergy)
+        stuffedThreshold.setValue(params.stuffedThreshold)
+        reproductionCost.setValue(params.reproductionCost)
+        mutationMinNum.setValue(params.mutationMinNum)
+        mutationMaxNum.setValue(params.mutationMaxNum)
+        mutationType.setValue(if (params.mutationType == MutationType.RANDOM) 0 else 1)
+        genomeLength.setValue(params.genomeLength)
+        animalBehavior.setValue(if (params.animalBehavior == AnimalBehavior.STRICT) 0 else 1)
     }
 }

@@ -7,8 +7,9 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.image.Image
 import javafx.scene.layout.*
-import javafx.stage.Stage
-import java.io.FileInputStream
+import javafx.stage.*
+import java.io.*
+import evolution.simulator.ParameterManager
 
 class MenuWindow(
     private val app: EvolutionSimulator,
@@ -18,18 +19,43 @@ class MenuWindow(
     fun start() {
         val vbox = VBox()
 
-        val label = Label("wprowadz parametry") 
+        val label = Label("Enter the parameters") 
 
-        val button = Button("RUSZAMY")
+        val buttonHBox = HBox()
+
+        val startButton = Button("Start")
+        val saveButton = Button("Save")
+        val loadButton = Button("Load")
+
+        val parameterManager = ParameterManager()
 
         val menu = ParameterMenu()
 
-        button.onAction = EventHandler {
+        startButton.onAction = EventHandler {
             app.newSimulation(menu.get())
         }
 
+        saveButton.onAction = EventHandler {
+            val stage = Stage()
+            val fileChooser = FileChooser()
+            fileChooser.title = "Create output file"
+            val file: File = fileChooser.showSaveDialog(stage)
+            parameterManager.save(file, menu.get())
+        }
 
-        vbox.children.addAll(label, menu.asNode(), button)
+        loadButton.onAction = EventHandler {
+            val stage = Stage()
+            val fileChooser = FileChooser()
+            fileChooser.title = "Create output file"
+            val file: File = fileChooser.showOpenDialog(stage)
+            val params = parameterManager.load(file)
+            menu.set(params)
+        }
+
+        buttonHBox.children.addAll(saveButton, startButton, loadButton)
+        buttonHBox.alignment = Pos.BOTTOM_CENTER
+
+        vbox.children.addAll(label, menu.asNode(), buttonHBox)
         vbox.alignment = Pos.CENTER
 
         val backgroundImage = BackgroundImage(

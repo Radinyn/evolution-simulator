@@ -14,12 +14,20 @@ class Genome(private val strategy: Strategy, collection: Collection<UInt>) : Ite
         this.genes.addAll(collection)
     }
 
+    override fun toString(): String {
+        return genes.map{gene -> ('A'.code + gene.toInt()).toChar() }.joinToString("")
+    }
+
     private fun slice(range: IntRange): List<UInt> {
         return this.genes.slice(range)
     }
 
     fun get(index: Int): UInt {
         return this.genes[index]
+    }
+
+    fun getTopGene(): UInt {
+        return this.genes.groupBy { it }.mapValues { it.value.size }.maxByOrNull { it.value }?.key!!
     }
 
     fun cross(other: Genome, factor: Float): Genome {

@@ -33,4 +33,8 @@ class Vector2d(var x: Int, var y: Int) {
     override fun hashCode(): Int {
         return Objects.hash(this.x, this.y)
     }
+
+    override fun toString(): String {
+        return "[$x, $y]"
+    }
 }
