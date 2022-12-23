@@ -38,6 +38,9 @@ dependencies {
 
     // Reflection
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
+
+    // JSON
+    implementation("com.google.code.gson:gson:2.8.9")
 }
 
 application {

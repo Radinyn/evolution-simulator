@@ -14,7 +14,10 @@ class Chart {
     init {
         lineChart = LineChart(xAxis, yAxis)
         xAxis.isAutoRanging = true
+        xAxis.isForceZeroInRange = false
         yAxis.isAutoRanging = true
+        lineChart.isLegendVisible = false
+        lineChart.createSymbols = false
         lineChart.autosize()
         lineChart.data.add(series)
     }
@@ -25,7 +28,18 @@ class Chart {
 
     fun addPoint(x: Number, y: Number) {
         Platform.runLater {
+            if (series.data.size > 100) {
+                series.data.removeFirst()
+            }
+            
+
             series.data.add(XYChart.Data(x, y))
         }
-    } 
+    }
+
+    fun clear() {
+        Platform.runLater {
+            series.data.clear()
+        }
+    }
 }

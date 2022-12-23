@@ -38,4 +38,12 @@ class StatisticsCharts {
     fun asNode(): TabPane {
         return tabPane
     }
+
+    fun clear() {
+        for (member in SimulationStatistics::class.memberProperties) {
+            if (member.name == "numOfIterations") continue
+            if (member.name == "bestGenome") continue
+            charts[member.name]!!.clear()
+        }
+    }
 }

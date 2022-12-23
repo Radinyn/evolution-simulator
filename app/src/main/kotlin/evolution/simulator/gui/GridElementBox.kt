@@ -8,16 +8,6 @@ class GridElementBox(children: Collection<Node>) {
     private val vbox: VBox = VBox()
 
     init {
-//        val image = Image(FileInputStream("src/main/resources/test.jpeg"))
-//        val imageView = ImageView(image)
-//        imageView.fitWidth = 40.0
-//        imageView.fitHeight = 40.0
-//        this.vbox.onMousePressed = EventHandler<Event> {
-//            imageView.rotate = (imageView.rotate + 90) % 360
-//        }
-        // this.vbox.onMouseReleased = EventHandler<Event> {
-        //     imageView.rotate = 0.0
-        // }
         this.vbox.children.addAll(children)
         this.vbox.alignment = Pos.CENTER
     }

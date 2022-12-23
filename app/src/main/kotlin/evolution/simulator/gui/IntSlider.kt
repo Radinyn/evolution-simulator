@@ -27,4 +27,8 @@ class IntSlider(
     fun getValue(): Int {
         return slider.value.toInt()
     }
+
+    fun setValue(x: Int) {
+        slider.value = x.toDouble()
+    }
 }

@@ -1,5 +1,7 @@
 package evolution.simulator
 
+import kotlin.reflect.full.memberProperties
+
 data class SimulationStatistics(
     // ilość iteracji symulacji
     var numOfIterations: ULong,
@@ -25,4 +27,8 @@ data class SimulationStatistics(
     constructor() : this(
         0u,0u,0u,0u, listOf(),0.0,0.0,
     )
+
+    fun toCSV(delim: String): String {
+        return SimulationStatistics::class.memberProperties.map{it.get(this).toString()}.joinToString(delim)
+    }
 }
