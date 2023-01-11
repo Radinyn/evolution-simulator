@@ -1,0 +1,1 @@
+{"height":16,"width":16,"mapType":"GLOBE","initPlantsNum":12,"plantEnergy":8,"plantGrowthRate":5,"plantGrowthType":"CORPSES","initAnimalNum":5,"initAnimalEnergy":50,"stuffedThreshold":5,"reproductionCost":5,"mutationMinNum":0,"mutationMaxNum":10,"mutationType":"RANDOM","genomeLength":10,"animalBehavior":"RANDOM"}
